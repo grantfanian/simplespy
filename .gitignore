@@ -1,0 +1,9 @@
+venv/
+.idea
+__pycache__
+*.pyc
+*.pyo
+pyproject.toml
+*.json
+*_.py
+env.sh 

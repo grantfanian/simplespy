@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="SimpleSpy">
+        <title>SimpleSpy: {{ "TODO" }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    </head>
+    <body>
+        <ul class="tree">
+            {% for time, event in events.items() %}
+                <li>
+                    <details>
+                        <summary>
+                            {{ time }}
+                        </summary>
+                        <ul style="list-style:none;">
+                            {% for diff in event %}
+                                <li>
+                                    <code>
+                                        <p class={{ diff[0] }}>
+                                            {% set sign=signs[diff[0]] %}
+                                            {{ sign*3 }}
+                                            {% if diff[0]=="change" %}
+                                                {{ diff[1] }}: <span class="before">{% if diff[1]=="last_seen.time" %}{{ timefromutc(diff[2][0]) }}{% else %}{{ diff[2][0] }}{% endif %}</span>&nbsp;-&gt;&nbsp;<span class="after">{% if diff[1]=="last_seen.time" %}{{ timefromutc(diff[2][1]) }}{% else %}{{ diff[2][1] }}{% endif %}</span>
+                                            {% elif diff[0]=="add" or diff[0]=="remove" %}
+                                                /
+                                                <br>
+                                                {% for line in diff[2] %}
+                                                    &nbsp;{{ sign*2 }}&nbsp;{{ line[0] }}:&nbsp;{% if line[0]=="last_seen" %}{{ timefromutc(line[1]) }}{% else %}{{ line[1] }}{% endif %}
+                                                    <br>
+                                                {% endfor %}
+                                                {{ sign*3 }} \
+                                            {% endif %}
+                                        </p>
+                                    </code>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

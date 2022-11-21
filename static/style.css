@@ -1,10 +1,13 @@
-.add{
-    color:green;
+.add {
+    color: green;
 }
-.change{
-    color:blue;
+
+.change {
+    color: blue;
 }
-.remove{
-    color:red;
+
+.remove {
+    color: red;
 }
-.tree{}
+
+.tree {}
